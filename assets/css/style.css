@@ -1,0 +1,343 @@
+/**
+ * Google Login System - CSS Styles
+ * 
+ * This file contains all styling for the login and dashboard pages.
+ * Uses only vanilla CSS with no frameworks.
+ */
+
+/* Root Color Scheme */
+:root {
+    --primary-color: #1f2937;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --background-color: #f9fafb;
+    --card-background: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition-duration: 0.3s;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logo Styling */
+.logo {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    color: var(--accent-color);
+}
+
+.logo svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Title Styling */
+.app-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Welcome Message */
+.welcome-message {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Google Button Container */
+.google-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#g_id_signin {
+    display: inline-block !important;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-indicator p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dashboard-card {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Profile Section */
+.profile-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-picture-placeholder {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    border: 3px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+}
+
+.profile-picture-placeholder svg {
+    width: 50px;
+    height: 50px;
+}
+
+/* Welcome Heading */
+.welcome-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 20px 0;
+}
+
+/* User Information */
+.user-info {
+    background-color: var(--background-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.info-item {
+    margin-bottom: 20px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.info-value {
+    color: var(--text-primary);
+    font-size: 16px;
+    word-break: break-all;
+}
+
+/* Logout Section */
+.logout-section {
+    margin-top: 30px;
+}
+
+.logout-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 32px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all var(--transition-duration) ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+.logout-button:hover {
+    background-color: var(--accent-hover);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.logout-button:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-card,
+    .dashboard-card {
+        padding: 30px 20px;
+    }
+
+    .app-title {
+        font-size: 20px;
+    }
+
+    .welcome-heading {
+        font-size: 24px;
+    }
+
+    .profile-picture,
+    .profile-picture-placeholder {
+        width: 80px;
+        height: 80px;
+    }
+
+    .user-info {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 320px) {
+    .login-card,
+    .dashboard-card {
+        padding: 20px 16px;
+        border-radius: 8px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .app-title {
+        font-size: 18px;
+    }
+
+    .welcome-message {
+        font-size: 13px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .login-container,
+    .dashboard-container {
+        min-height: auto;
+    }
+
+    .logout-button {
+        display: none;
+    }
+}
