@@ -54,6 +54,7 @@ if (!empty($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
 
             <div class="google-button-container">
                 <div id="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="signin_with" data-shape="rectangular" data-logo_alignment="left"></div>
+                <!-- Note: If Google button doesn't appear, ensure your domain is added to "Authorized JavaScript origins" in Google Cloud Console -->
             </div>
 
             <!-- Error Message Container -->

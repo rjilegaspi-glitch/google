@@ -96,7 +96,55 @@ function handleGoogleLoadFailure() {
     console.warn('Google Sign-In failed to load');
     const buttonContainer = document.querySelector('.google-button-container');
     if (buttonContainer) {
-        buttonContainer.innerHTML = '<p class="error-message" style="display: block;">Google Sign-In is currently unavailable. Please refresh the page or try again later.</p>';
+        // Clear existing content
+        buttonContainer.innerHTML = '';
+        
+        // Create error message container
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        
+        // Create heading
+        const heading = document.createElement('strong');
+        heading.textContent = 'Google Sign-In Unavailable';
+        errorDiv.appendChild(heading);
+        
+        // Create description
+        const description = document.createElement('p');
+        description.textContent = 'The Google authentication service is not accessible. This usually means:';
+        errorDiv.appendChild(description);
+        
+        // Create list of possible causes
+        const list = document.createElement('ul');
+        const causes = [
+            'Your domain is not authorized in Google Cloud Console',
+            'Google API script blocked by your network or browser',
+            'Network connectivity issue'
+        ];
+        causes.forEach(cause => {
+            const item = document.createElement('li');
+            item.textContent = cause;
+            list.appendChild(item);
+        });
+        errorDiv.appendChild(list);
+        
+        // Create action paragraph with reload button
+        const actionPara = document.createElement('p');
+        actionPara.textContent = 'Please contact your administrator or ';
+        
+        const reloadBtn = document.createElement('button');
+        reloadBtn.id = 'reload-btn';
+        reloadBtn.className = 'reload-link';
+        reloadBtn.textContent = 'refresh this page';
+        reloadBtn.addEventListener('click', function() {
+            location.reload();
+        });
+        
+        actionPara.appendChild(reloadBtn);
+        actionPara.appendChild(document.createTextNode(' to try again.'));
+        errorDiv.appendChild(actionPara);
+        
+        // Append to container
+        buttonContainer.appendChild(errorDiv);
     }
 }
 
@@ -109,7 +157,8 @@ function initializeGoogleSignIn() {
             // Initialize Google Sign-In
             google.accounts.id.initialize({
                 client_id: document.getElementById('g_id_onload').getAttribute('data-client_id'),
-                callback: handleCredentialResponse
+                callback: handleCredentialResponse,
+                error_callback: handleGoogleSignInError
             });
             
             // Render the button
@@ -132,7 +181,16 @@ function initializeGoogleSignIn() {
         }
     } else {
         console.warn('Google API not available');
+        handleGoogleLoadFailure();
     }
+}
+
+/**
+ * Handle Google Sign-In errors
+ */
+function handleGoogleSignInError(error) {
+    console.error('Google Sign-In error:', error);
+    handleGoogleLoadFailure();
 }
 
 /**
@@ -157,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (checkCount >= maxChecks) {
                 // Google API failed to load
                 clearInterval(checkGoogleAPI);
-                console.error('Google API failed to load after 5 seconds');
+                console.error('Google API failed to load after 5 seconds. Possible causes:\n1. Domain not authorized in Google Cloud Console\n2. Google API script blocked by network/browser\n3. Invalid Client ID in config.php');
                 handleGoogleLoadFailure();
             }
         }, 100);

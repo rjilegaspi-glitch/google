@@ -5,6 +5,19 @@
  * This file contains the Google Client ID needed for authentication.
  * Replace YOUR_GOOGLE_CLIENT_ID with your actual Google Client ID
  * obtained from Google Cloud Console.
+ * 
+ * IMPORTANT: Domain Authorization
+ * ===============================
+ * After deploying to a new domain (e.g., lintech.space), you MUST:
+ * 1. Go to Google Cloud Console > APIs & Services > Credentials
+ * 2. Click on your OAuth 2.0 Client ID
+ * 3. Add your domain to "Authorized JavaScript origins"
+ *    Example: https://lintech.space
+ * 4. Also add to "Authorized redirect URIs" if needed
+ *    Example: https://lintech.space/google/
+ * 
+ * If this step is skipped, the Google Sign-In button will not render
+ * and users will see an error message instead of the login button.
  */
 
 // Google Client ID from Google Cloud Console

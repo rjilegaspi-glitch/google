@@ -147,6 +147,44 @@ body {
     word-break: break-word;
 }
 
+.error-message strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.error-message p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.error-message ul {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.error-message li {
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+.error-message .reload-link {
+    background: none;
+    border: none;
+    color: #7f1d1d;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+.error-message .reload-link:hover {
+    color: #991b1b;
+}
+
 /* Loading Indicator */
 .loading-indicator {
     text-align: center;
