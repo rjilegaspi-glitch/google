@@ -96,7 +96,7 @@ function handleGoogleLoadFailure() {
     console.warn('Google Sign-In failed to load');
     const buttonContainer = document.querySelector('.google-button-container');
     if (buttonContainer) {
-        buttonContainer.innerHTML = '<p class="error-message" style="display: block;">Google Sign-In is currently unavailable. Please refresh the page or try again later.</p>';
+        buttonContainer.innerHTML = '<div class="error-message" style="display: block;"><strong>Google Sign-In Unavailable</strong><p style="margin-top: 8px; margin-bottom: 0;">The Google authentication service is not accessible. This usually means:</p><ul style="text-align: left; margin-top: 8px; padding-left: 20px;"><li>Your domain is not authorized in Google Cloud Console</li><li>Google API script blocked by your network or browser</li><li>Network connectivity issue</li></ul><p style="margin-top: 8px; margin-bottom: 0;">Please contact your administrator or <a href="javascript:location.reload();" style="color: #991b1b; text-decoration: underline;">refresh this page</a> to try again.</p></div>';
     }
 }
 
@@ -109,7 +109,8 @@ function initializeGoogleSignIn() {
             // Initialize Google Sign-In
             google.accounts.id.initialize({
                 client_id: document.getElementById('g_id_onload').getAttribute('data-client_id'),
-                callback: handleCredentialResponse
+                callback: handleCredentialResponse,
+                error_callback: handleGoogleSignInError
             });
             
             // Render the button
@@ -132,13 +133,28 @@ function initializeGoogleSignIn() {
         }
     } else {
         console.warn('Google API not available');
+        handleGoogleLoadFailure();
     }
+}
+
+/**
+ * Handle Google Sign-In errors
+ */
+function handleGoogleSignInError(error) {
+    console.error('Google Sign-In error:', error);
+    handleGoogleLoadFailure();
 }
 
 /**
  * Initialize Google Sign-In when the page loads
  */
 document.addEventListener('DOMContentLoaded', function() {
+    // Show loading message initially
+    const loadingElement = document.getElementById('loading');
+    if (loadingElement) {
+        loadingElement.style.display = 'none'; // Hide the "Authenticating..." message
+    }
+    
     // Check if Google API is loaded
     if (typeof google !== 'undefined' && google.accounts) {
         // Initialize immediately if Google is already loaded
@@ -158,6 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Google API failed to load
                 clearInterval(checkGoogleAPI);
                 console.error('Google API failed to load after 5 seconds');
+                console.error('Possible causes:');
+                console.error('1. Domain not authorized in Google Cloud Console');
+                console.error('2. Google API script blocked by network/browser');
+                console.error('3. Invalid Client ID in config.php');
                 handleGoogleLoadFailure();
             }
         }, 100);
