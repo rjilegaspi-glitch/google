@@ -169,16 +169,6 @@ body {
     line-height: 1.4;
 }
 
-.error-message a {
-    color: #7f1d1d;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.error-message a:hover {
-    color: #991b1b;
-}
-
 .error-message .reload-link {
     background: none;
     border: none;
