@@ -179,6 +179,22 @@ body {
     color: #991b1b;
 }
 
+.error-message .reload-link {
+    background: none;
+    border: none;
+    color: #7f1d1d;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+.error-message .reload-link:hover {
+    color: #991b1b;
+}
+
 /* Loading Indicator */
 .loading-indicator {
     text-align: center;

@@ -96,7 +96,16 @@ function handleGoogleLoadFailure() {
     console.warn('Google Sign-In failed to load');
     const buttonContainer = document.querySelector('.google-button-container');
     if (buttonContainer) {
-        buttonContainer.innerHTML = '<div class="error-message" style="display: block;"><strong>Google Sign-In Unavailable</strong><p style="margin-top: 8px; margin-bottom: 0;">The Google authentication service is not accessible. This usually means:</p><ul style="text-align: left; margin-top: 8px; padding-left: 20px;"><li>Your domain is not authorized in Google Cloud Console</li><li>Google API script blocked by your network or browser</li><li>Network connectivity issue</li></ul><p style="margin-top: 8px; margin-bottom: 0;">Please contact your administrator or <a href="javascript:location.reload();" style="color: #991b1b; text-decoration: underline;">refresh this page</a> to try again.</p></div>';
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = '<strong>Google Sign-In Unavailable</strong><p>The Google authentication service is not accessible. This usually means:</p><ul><li>Your domain is not authorized in Google Cloud Console</li><li>Google API script blocked by your network or browser</li><li>Network connectivity issue</li></ul><p>Please contact your administrator or <button id="reload-btn" class="reload-link">refresh this page</button> to try again.</p>';
+        buttonContainer.innerHTML = '';
+        buttonContainer.appendChild(errorDiv);
+        
+        // Attach click handler to reload button
+        document.getElementById('reload-btn').addEventListener('click', function() {
+            location.reload();
+        });
     }
 }
 
@@ -149,12 +158,6 @@ function handleGoogleSignInError(error) {
  * Initialize Google Sign-In when the page loads
  */
 document.addEventListener('DOMContentLoaded', function() {
-    // Show loading message initially
-    const loadingElement = document.getElementById('loading');
-    if (loadingElement) {
-        loadingElement.style.display = 'none'; // Hide the "Authenticating..." message
-    }
-    
     // Check if Google API is loaded
     if (typeof google !== 'undefined' && google.accounts) {
         // Initialize immediately if Google is already loaded
