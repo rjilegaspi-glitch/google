@@ -109,11 +109,29 @@ body {
 .google-button-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 30px 0;
+    min-height: 50px;
 }
 
+/* Ensure Google button components are visible */
 #g_id_signin {
-    display: inline-block !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Google button styles for all child elements */
+#g_id_signin > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+#g_id_signin button {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 /* Error Message */
@@ -125,6 +143,8 @@ body {
     border-radius: var(--radius-md);
     margin: 20px 0;
     font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Loading Indicator */
@@ -303,6 +323,10 @@ body {
     .user-info {
         padding: 16px;
     }
+
+    .google-button-container {
+        min-height: 45px;
+    }
 }
 
 @media (max-width: 320px) {
@@ -323,6 +347,10 @@ body {
 
     .welcome-message {
         font-size: 13px;
+    }
+
+    .google-button-container {
+        min-height: 40px;
     }
 }
 
