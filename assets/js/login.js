@@ -90,14 +90,77 @@ function handleSignOut() {
 }
 
 /**
+ * Handle the case where Google button fails to render
+ */
+function handleGoogleLoadFailure() {
+    console.warn('Google Sign-In failed to load');
+    const buttonContainer = document.querySelector('.google-button-container');
+    if (buttonContainer) {
+        buttonContainer.innerHTML = '<p class="error-message" style="display: block;">Google Sign-In is currently unavailable. Please refresh the page or try again later.</p>';
+    }
+}
+
+/**
+ * Initialize and render Google Sign-In button when Google API loads
+ */
+function initializeGoogleSignIn() {
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+            // Initialize Google Sign-In
+            google.accounts.id.initialize({
+                client_id: document.getElementById('g_id_onload').getAttribute('data-client_id'),
+                callback: handleCredentialResponse
+            });
+            
+            // Render the button
+            google.accounts.id.renderButton(
+                document.getElementById('g_id_signin'),
+                {
+                    type: 'standard',
+                    size: 'large',
+                    theme: 'outline',
+                    text: 'signin_with',
+                    shape: 'rectangular',
+                    logo_alignment: 'left'
+                }
+            );
+            
+            console.log('Google Sign-In button rendered successfully');
+        } catch (error) {
+            console.error('Error initializing Google Sign-In:', error);
+            handleGoogleLoadFailure();
+        }
+    } else {
+        console.warn('Google API not available');
+    }
+}
+
+/**
  * Initialize Google Sign-In when the page loads
  */
 document.addEventListener('DOMContentLoaded', function() {
     // Check if Google API is loaded
     if (typeof google !== 'undefined' && google.accounts) {
-        // Initialize Google Sign-In
-        // The configuration is already set in the HTML via data attributes
-        console.log('Google Sign-In initialized');
+        // Initialize immediately if Google is already loaded
+        initializeGoogleSignIn();
+    } else {
+        // Wait for Google API to load
+        let checkCount = 0;
+        const maxChecks = 50; // Check for 5 seconds (50 * 100ms)
+        
+        const checkGoogleAPI = setInterval(function() {
+            checkCount++;
+            
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                clearInterval(checkGoogleAPI);
+                initializeGoogleSignIn();
+            } else if (checkCount >= maxChecks) {
+                // Google API failed to load
+                clearInterval(checkGoogleAPI);
+                console.error('Google API failed to load after 5 seconds');
+                handleGoogleLoadFailure();
+            }
+        }, 100);
     }
 });
 
