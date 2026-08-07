@@ -22,11 +22,14 @@ if (!empty($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Google Login</title>
     
-    <!-- Google Identity Services Library -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Custom JavaScript - Must load before Google Identity Services to define callbacks -->
+    <script src="assets/js/login.js"></script>
+    
+    <!-- Google Identity Services Library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="login-container">
@@ -67,8 +70,5 @@ if (!empty($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
             </div>
         </div>
     </div>
-
-    <!-- Custom JavaScript -->
-    <script src="assets/js/login.js"></script>
 </body>
 </html>
